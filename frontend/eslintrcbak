@@ -1,0 +1,13 @@
+{
+  "rules": {
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    'react/prefer-stateless-function': 0,
+    "react/jsx-one-expression-per-line": [<enabled>, { "allow": "literal" }],
+    "eol-last": ["error", "always"],
+    "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }]
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}

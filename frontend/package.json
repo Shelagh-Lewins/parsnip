@@ -15,7 +15,18 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": ["react-app"],
+    "rules": {
+      "eol-last": ["error", "always"],
+      "quotes": [2, "single", { "avoidEscape": true, "allowTemplateLiterals": true }],
+      "padded-blocks": ["error", "never"],
+      "semi": ["error", "always"],
+      "indent": ["error", "tab"]
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
   },
   "browserslist": [
     ">0.2%",
