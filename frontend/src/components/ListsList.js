@@ -10,7 +10,11 @@ const ListsList = props => {
 				<strong>My lists</strong>
 			</div>
 			{props.lists.map(list => (
-				<List key={list.id} list={list} />
+				<List
+					key={list.id}
+					list={list}
+					onIsPublicChange={props.onIsPublicChange}
+				/>
 			))}
 		</div>
 	);

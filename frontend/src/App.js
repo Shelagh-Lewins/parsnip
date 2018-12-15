@@ -1,29 +1,37 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import ListsPage from './components/ListsPage';
 import './App.css';
 import './App.scss';
-
-const mockLists = [
-	{
-		id: 1,
-		title: 'Books',
-		description: 'My favourite books'
-	},
-	{
-		id: 2,
-		title: 'People',
-		description: 'My favourite people'
-	}
-];
+import { createList, setListIsPublic } from './actions';
 
 class App extends Component {
+	onCreateList = ({ title, description }) => {
+		this.props.dispatch(createList({ title, description }));
+	}
+
+	onIsPublicChange = ({ id, isPublic }) => {
+		console.log('onIsPublicChange ', id);
+		this.props.dispatch(setListIsPublic({ id, isPublic }));
+	}
+
 	render() {
 		return (
 			<div className="main-content">
-				<ListsPage lists={mockLists} />
+				<ListsPage
+					lists={this.props.lists}
+					onCreateList={this.onCreateList}
+					onIsPublicChange={this.onIsPublicChange}
+				/>
 			</div>
 		);
 	}
 }
 
-export default App;
+function mapStateToProps(state) {
+	return {
+		'lists': state.lists
+	};
+}
+
+export default connect(mapStateToProps)(App);

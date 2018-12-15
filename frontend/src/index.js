@@ -4,7 +4,25 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
+import lists from './reducers';
+
+import { composeWithDevTools } from 'redux-devtools-extension';
+
+const store = createStore(lists, composeWithDevTools(
+ 	// applyMiddleware(...middleware),
+ 	// other store enhancers if any
+));
+
+// const store = createStore(lists);
+
+ReactDOM.render (
+	<Provider store={store}>
+		<App />
+	</Provider>,
+	document.getElementById('root')
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
@@ -12,5 +30,5 @@ ReactDOM.render(<App />, document.getElementById('root'));
 serviceWorker.unregister();
 
 if (module.hot) {
-  module.hot.accept();
+	module.hot.accept();
 }
