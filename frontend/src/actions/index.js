@@ -14,12 +14,12 @@ export function createList({ title, description }) {
 	};
 }
 
-export function setListIsPublic({ id, isPublic }) {
+export function setListIsPublic({ id, is_public }) {
 	return {
 		'type': 'SET_LIST_IS_PUBLIC',
 		'payload': {
 			'id': id,
-			isPublic
+			is_public
 		}
 	};
 }

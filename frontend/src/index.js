@@ -45,7 +45,7 @@ if (module.hot) {
 serviceWorker.unregister();
 
 
-
+// basic recommended for React apps. Don't know if it should be enabled.
 /*
 if (module.hot) {
 	module.hot.accept();

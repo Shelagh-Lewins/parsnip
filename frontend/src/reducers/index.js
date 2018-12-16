@@ -7,13 +7,13 @@ const mockLists = [
 		'id': uniqueId(),
 		'title': 'Books',
 		'description': 'My favourite books',
-		'isPublic': false
+		'is_public': false
 	},
 	{
 		'id': uniqueId(),
 		'title': 'People',
 		'description': 'My favourite people',
-		'isPublic': false
+		'is_public': false
 	}
 ];
 
@@ -30,7 +30,7 @@ export default function lists(state = { 'lists': mockLists }, action) {
 			// could use map but why carry on after list is found?
 			for (let i=0; i< state.lists.length; i++) {
 				if (state.lists[i].id === action.payload.id) {
-					return updeep.updateIn(`lists.${i}.isPublic`, action.payload.isPublic, state);
+					return updeep.updateIn(`lists.${i}.is_public`, action.payload.is_public, state);
 				}
 			}
 			return state; // in case list was not found

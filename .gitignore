@@ -2,3 +2,4 @@ db.sqlite3
 /djangoproject/__pycache__
 __pycache__
 /deploy
+database.cnf
