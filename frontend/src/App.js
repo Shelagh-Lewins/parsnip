@@ -11,7 +11,6 @@ class App extends Component {
 	}
 
 	onIsPublicChange = ({ id, isPublic }) => {
-		console.log('onIsPublicChange ', id);
 		this.props.dispatch(setListIsPublic({ id, isPublic }));
 	}
 
