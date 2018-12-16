@@ -5,12 +5,14 @@ import React from 'react';
 // By using props to populate the UI, we enable time travel and a direct connection with the store.
 
 const ISPUBLIC_VALUES = [
+	'Private',
 	'Public',
-	'Private'
 ];
 
 const List = props => {
 	let id=`select-${props.list.id}`;
+	let value = props.list.isPublic ? 'Public' : 'Private';
+
 	return (
 		<div className="list">
 			<div className="list-header">
@@ -19,18 +21,19 @@ const List = props => {
 			<hr />
 			<div className="list-body">{props.list.description}</div>
 			<div className="list-status">
-				<select value={props.list.isPublic} onChange={onIsPublicChange} id={id}>
+				<select value={value} onChange={onIsPublicChange} id={id}>
 					{ISPUBLIC_VALUES.map(isPublic => (
 						<option key={isPublic} value={isPublic}>{isPublic}</option>
 					))}
 				</select>
 			</div>
-			Status: {props.list.isPublic}
 		</div>
 	);
 
 	function onIsPublicChange(e) {
-		props.onIsPublicChange({ 'id': props.list.id, 'isPublic': e.target.value });
+		// map from select options to true / false
+		const value = e.target.value === 'Public' ? true : false;
+		props.onIsPublicChange({ 'id': props.list.id, 'isPublic': value });
 	}
 };
 

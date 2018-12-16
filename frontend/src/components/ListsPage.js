@@ -6,7 +6,7 @@ import ListsList from './ListsList';
 class ListsPage extends Component {
 	constructor(props) {
 		super(props);
-		console.log(' ListsPage props: ', props);
+
 		this.state = {
 			'showNewCardForm': false,
 			'title': '',
