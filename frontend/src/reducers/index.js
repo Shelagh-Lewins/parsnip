@@ -1,5 +1,3 @@
-// import { uniqueId } from '../actions';
-
 var updeep = require('updeep');
 export default function lists(state = { 'lists': [] }, action) {
 	switch (action.type) {
@@ -7,7 +5,7 @@ export default function lists(state = { 'lists': [] }, action) {
 			function addLists() {
 				return [].concat(action.payload.lists);
 			}
-
+			console.log('lists ', action.payload.lists);
 			return updeep({ 'lists': addLists }, state); // updeep calls  addList with the lists object as argument. This appends action.payload to an empty array, replacing any previous lists
 		}
 

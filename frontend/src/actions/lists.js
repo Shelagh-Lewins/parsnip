@@ -1,9 +1,3 @@
-let _id = 1;
-export function uniqueId() {
-	console.log('id before ', _id);
-	return _id++;
-}
-
 export const fetchLists = () => {
 	return dispatch => {
 		let headers = { 'Content-Type': 'application/json' };
@@ -27,8 +21,6 @@ export function fetchListsSucceeded(lists) {
 export const createList = (list) => {
 	return dispatch => {
 		let headers = { 'Content-Type': 'application/json' };
-		list.id = uniqueId();
-		list.is_public = false;
 		let body = JSON.stringify(list);
 		return fetch('/api/lists/', { headers, 'method': 'POST', body })
 			.then(res => res.json())
