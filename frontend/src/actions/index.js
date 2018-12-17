@@ -1,25 +1,4 @@
-let _id = 1;
-export function uniqueId() {
-	return _id++;
-}
+import * as lists from './lists';
 
-export function createList({ title, description }) {
-	return {
-		'type': 'CREATE_LIST',
-		'payload': {
-			'id': uniqueId(),
-			title,
-			description
-		}
-	};
-}
+export { lists };
 
-export function setListIsPublic({ id, is_public }) {
-	return {
-		'type': 'SET_LIST_IS_PUBLIC',
-		'payload': {
-			'id': id,
-			is_public
-		}
-	};
-}

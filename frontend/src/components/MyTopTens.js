@@ -1,16 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListsPage from './ListsPage';
-import { createList, setListIsPublic } from '../actions';
+import { lists } from '../actions/index.js';
 
 
 class MyTopTens extends Component {
+	componentDidMount() {
+		this.props.dispatch(lists.fetchLists());
+	}
+
 	onCreateList = ({ title, description }) => {
-		this.props.dispatch(createList({ title, description }));
+		this.props.dispatch(lists.createList({ title, description }));
 	}
 
 	onIsPublicChange = ({ id, is_public }) => {
-		this.props.dispatch(setListIsPublic({ id, is_public }));
+		this.props.dispatch(lists.setListIsPublic({ id, is_public }));
 	}
 
 	render() {

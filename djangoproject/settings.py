@@ -25,7 +25,7 @@ SECRET_KEY = '3f^ds%w@h60mn(m0_&s5e4wbqva1_vjosgfg7s%plj)_m7mxi9'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['mytoptens.com', '127.0.0.1']
+ALLOWED_HOSTS = ['mytoptens.com', '127.0.0.1', 'localhost']
 
 
 # Application definition

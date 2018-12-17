@@ -1,27 +1,19 @@
-import { uniqueId } from '../actions';
+// import { uniqueId } from '../actions';
 
 var updeep = require('updeep');
-
-const mockLists = [
-	{
-		'id': uniqueId(),
-		'title': 'Books',
-		'description': 'My favourite books',
-		'is_public': false
-	},
-	{
-		'id': uniqueId(),
-		'title': 'People',
-		'description': 'My favourite people',
-		'is_public': false
-	}
-];
-
-export default function lists(state = { 'lists': mockLists }, action) {
+export default function lists(state = { 'lists': [] }, action) {
 	switch (action.type) {
-		case 'CREATE_LIST': {
+		case 'FETCH_LISTS_SUCCEEDED': {
+			function addLists() {
+				return [].concat(action.payload.lists);
+			}
+
+			return updeep({ 'lists': addLists }, state); // updeep calls  addList with the lists object as argument. This appends action.payload to an empty array, replacing any previous lists
+		}
+
+		case 'CREATE_LIST_SUCCEEDED': {
 			function addList(lists) {
-				return [].concat(lists, action.payload);
+				return [].concat(lists, action.payload.list);
 			}
 			return updeep({ 'lists': addList }, state); // updeep calls  addList with the lists object as argument. So this appends action.payload to state.lists.
 		}
