@@ -53,7 +53,6 @@ export const deleteList = (id) => {
 
 		return fetch(`/api/lists/${id}/`, { headers, 'method': 'DELETE' })
 			.then(res => {
-				console.log('res ', res);
 				dispatch(deleteListSucceeded(id));
 			});
 	};
@@ -68,9 +67,23 @@ export function deleteListSucceeded(id) {
 	};
 }
 
-export function setListIsPublic({ id, is_public }) {
+export const setListIsPublic = ({ id, is_public }) => {
+	return (dispatch, getState) => {
+		let headers = { 'Content-Type': 'application/json' };
+		let body = JSON.stringify({ is_public });
+
+		return fetch(`/api/lists/${id}/`, { headers, 'method': 'PATCH', body })
+			.then(res => res.json())
+			.then(res => { // res is the entire updated list object
+				dispatch(setListIsPublicSucceeded(res));
+			});
+	};
+};
+
+export function setListIsPublicSucceeded({ id, is_public }) {
+	console.log('is_public ', is_public);
 	return {
-		'type': 'SET_LIST_IS_PUBLIC',
+		'type': 'SET_LIST_IS_PUBLIC_SUCCEEDED',
 		'payload': {
 			'id': id,
 			is_public

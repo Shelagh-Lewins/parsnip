@@ -23,7 +23,6 @@ export default function lists(state = { 'lists': [] }, action) {
 				if (state.lists[i].id === action.payload.id) {
 					// we need to use a function to act on the array
 					// you cannot splice from the lists array directly because it is sealed
-					// the function needs to know i
 					function deleteList(lists) {
 						let newArray = [...lists];
 						newArray.splice(i, 1);
@@ -36,7 +35,7 @@ export default function lists(state = { 'lists': [] }, action) {
 			return state; // if deleted list is not found, there is nothing to do
 		}
 
-		case 'SET_LIST_IS_PUBLIC': {
+		case 'SET_LIST_IS_PUBLIC_SUCCEEDED': {
 			// map would carry on after the index is found
 			// and as we need index, the for loop is simper
 			for (let i=0; i<state.lists.length; i++) {
