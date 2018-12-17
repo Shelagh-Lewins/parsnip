@@ -27,6 +27,7 @@ const List = props => {
 					))}
 				</select>
 			</div>
+			<button onClick={onDeleteList}>delete</button>
 		</div>
 	);
 
@@ -34,6 +35,10 @@ const List = props => {
 		// map from select options to true / false
 		const value = e.target.value === 'Public' ? true : false;
 		props.onIsPublicChange({ 'id': props.list.id, 'is_public': value });
+	}
+
+	function onDeleteList(e) {
+		props.onDeleteList(props.list.id);
 	}
 };
 

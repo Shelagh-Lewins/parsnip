@@ -14,6 +14,7 @@ const ListsList = props => {
 					key={list.id}
 					list={list}
 					onIsPublicChange={props.onIsPublicChange}
+					onDeleteList={props.onDeleteList}
 				/>
 			))}
 		</div>

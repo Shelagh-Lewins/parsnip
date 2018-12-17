@@ -39,6 +39,10 @@ class ListsPage extends Component {
 		this.resetForm();
 	}
 
+	onDeleteList = (id) => {
+		this.props.onDeleteList(id);
+	}
+
 	toggleForm = () => {
 		this.setState({ 'showNewCardForm': !this.state.showNewCardForm });
 	}
@@ -48,6 +52,7 @@ class ListsPage extends Component {
 		return <ListsList
 			lists={lists}
 			onIsPublicChange={this.props.onIsPublicChange}
+			onDeleteList={this.props.onDeleteList}
 		/>;
 	}
 

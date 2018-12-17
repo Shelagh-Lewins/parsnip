@@ -17,6 +17,10 @@ class MyTopTens extends Component {
 		this.props.dispatch(lists.setListIsPublic({ id, is_public }));
 	}
 
+	onDeleteList =  (id) => {
+		this.props.dispatch(lists.deleteList(id));
+	}
+
 	render() {
 		return (
 			<div className="main-content">
@@ -24,6 +28,7 @@ class MyTopTens extends Component {
 					lists={this.props.lists}
 					onCreateList={this.onCreateList}
 					onIsPublicChange={this.onIsPublicChange}
+					onDeleteList={this.onDeleteList}
 				/>
 			</div>
 		);

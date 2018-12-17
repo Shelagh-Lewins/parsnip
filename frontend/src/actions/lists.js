@@ -25,7 +25,6 @@ export function fetchListsSucceeded(lists) {
 }
 
 export const createList = (list) => {
-// export function createList({ title, description }) {
 	return dispatch => {
 		let headers = { 'Content-Type': 'application/json' };
 		list.id = uniqueId();
@@ -48,16 +47,26 @@ export function createListSucceeded(list) {
 	};
 }
 
-/* export function createList({ title, description }) {
+export const deleteList = (id) => {
+	return (dispatch, getState) => {
+		let headers = { 'Content-Type': 'application/json' };
+
+		return fetch(`/api/lists/${id}/`, { headers, 'method': 'DELETE' })
+			.then(res => {
+				console.log('res ', res);
+				dispatch(deleteListSucceeded(id));
+			});
+	};
+};
+
+export function deleteListSucceeded(id) {
 	return {
-		'type': 'CREATE_LIST',
+		'type': 'DELETE_LIST_SUCCEEDED',
 		'payload': {
-			'id': uniqueId(),
-			title,
-			description
+			id
 		}
 	};
-} */
+}
 
 export function setListIsPublic({ id, is_public }) {
 	return {
