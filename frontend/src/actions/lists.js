@@ -1,63 +1,54 @@
-function fetchListsStarted() {
+import { CALL_API } from '../middleware/api';
+
+export const FETCH_LISTS_STARTED = 'FETCH_LISTS_STARTED';
+export const FETCH_LISTS_SUCCEEDED = 'FETCH_LISTS_SUCCEEDED';
+export const FETCH_LISTS_FAILED = 'FETCH_LISTS_FAILED';
+
+export function fetchLists() {
 	return {
-		'type': 'FETCH_LISTS_STARTED'
-	};
-}
-
-function fetchListsFailed(error) {
-	return {
-		'type': 'FETCH_LISTS_FAILED',
-		'payload': {
-			error,
-		},
-	};
-}
-
-export const fetchLists = () => {
-	return dispatch => {
-		dispatch(fetchListsStarted());
-
-		let headers = { 'Content-Type': 'application/json' };
-		return fetch('/api/lists/', { headers, })
-			.then(res => res.json())
-			.then(lists => {
-				dispatch(fetchListsSucceeded(lists));
-			})
-			.catch(err => {
-				dispatch(fetchListsFailed('Unable to load lists. The server says: ' + err.message));
-			});
-	};
-};
-
-export function fetchListsSucceeded(lists) {
-	return {
-		'type': 'FETCH_LISTS_SUCCEEDED',
-		'payload': {
-			lists
+		[CALL_API]: {
+			'types': [FETCH_LISTS_STARTED, FETCH_LISTS_SUCCEEDED, FETCH_LISTS_FAILED],
+			'endpoint': 'lists/',
 		}
 	};
 }
 
-export const createList = (list) => {
-	return dispatch => {
-		let headers = { 'Content-Type': 'application/json' };
-		let body = JSON.stringify(list);
-		return fetch('/api/lists/', { headers, 'method': 'POST', body })
-			.then(res => res.json())
-			.then(list => {
-				dispatch(createListSucceeded(list));
-			});
-	};
-};
+export const CREATE_LIST_STARTED = 'CREATE_LIST_STARTED';
+export const CREATE_LIST_SUCCEEDED = 'CREATE_LIST_SUCCEEDED';
+export const CREATE_LIST_FAILED = 'CREATE_LIST_FAILED';
 
+export function createList(list) {
+	let body = JSON.stringify(list);
+
+	return {
+		[CALL_API]: {
+			'types': [CREATE_LIST_STARTED, CREATE_LIST_SUCCEEDED, CREATE_LIST_FAILED],
+			'endpoint': 'lists/',
+			'method': 'POST',
+			body
+		}
+	};
+}
+
+// The meta data is no longer passed on to the analytics middleware
+// it would be another exercise to implement that
+/*
 export function createListSucceeded(list) {
 	return {
 		'type': 'CREATE_LIST_SUCCEEDED',
 		'payload': {
 			list
-		}
+		},
+		'meta': {
+			'analytics': {
+				'event': 'create_list',
+				'data': {
+					'id': list.id,
+				},
+			},
+		},
 	};
-}
+} */
 
 export const deleteList = (id) => {
 	return (dispatch, getState) => {
@@ -93,7 +84,6 @@ export const setListIsPublic = ({ id, is_public }) => {
 };
 
 export function setListIsPublicSucceeded({ id, is_public }) {
-	console.log('is_public ', is_public);
 	return {
 		'type': 'SET_LIST_IS_PUBLIC_SUCCEEDED',
 		'payload': {
