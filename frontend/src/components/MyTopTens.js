@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ListsPage from './ListsPage';
 import { lists } from '../actions/index.js';
+import FlashMessage from './FlashMessage';
 
 
 class MyTopTens extends Component {
@@ -22,16 +23,19 @@ class MyTopTens extends Component {
 	}
 
 	render() {
-		console.log('MyTopTens. props.isLoading ', this.props.isLoading);
 		return (
-			<div className="main-content">
-				<ListsPage
-					lists={this.props.lists}
-					onCreateList={this.onCreateList}
-					onIsPublicChange={this.onIsPublicChange}
-					onDeleteList={this.onDeleteList}
-					isLoading={this.props.isLoading}
-				/>
+			<div className="container">
+				{this.props.error &&
+					<FlashMessage message={this.props.error} />}
+				<div className="main-content">
+					<ListsPage
+						lists={this.props.lists}
+						onCreateList={this.onCreateList}
+						onIsPublicChange={this.onIsPublicChange}
+						onDeleteList={this.onDeleteList}
+						isLoading={this.props.isLoading}
+					/>
+				</div>
 			</div>
 		);
 	}
@@ -39,10 +43,11 @@ class MyTopTens extends Component {
 
 function mapStateToProps(state) {
 	// return state.lists; // this seems to work and is much simpler. I'm not sure why this isn't the recommended form?
-	const { lists, isLoading } = state.lists;
+	const { lists, isLoading, error } = state.lists;
 	return {
 		lists,
-		isLoading
+		isLoading,
+		error,
 		// 'lists': state.lists.lists
 	};
 }

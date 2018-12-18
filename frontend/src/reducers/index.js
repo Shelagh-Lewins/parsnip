@@ -2,13 +2,18 @@ var updeep = require('updeep');
 
 const initialState = {
 	'lists': [],
-	'isloading': false
+	'isloading': false,
+	'error': null,
 };
 
 export default function lists(state = initialState, action) {
 	switch (action.type) {
 		case 'FETCH_LISTS_STARTED': {
 			return updeep({ 'isLoading': true }, state);
+		}
+
+		case 'FETCH_LISTS_FAILED': {
+			return updeep({ 'isLoading': false, 'error': action.payload.error }, state);
 		}
 
 		case 'FETCH_LISTS_SUCCEEDED': {

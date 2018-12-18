@@ -4,6 +4,15 @@ function fetchListsStarted() {
 	};
 }
 
+function fetchListsFailed(error) {
+	return {
+		'type': 'FETCH_LISTS_FAILED',
+		'payload': {
+			error,
+		},
+	};
+}
+
 export const fetchLists = () => {
 	return dispatch => {
 		dispatch(fetchListsStarted());
@@ -11,7 +20,12 @@ export const fetchLists = () => {
 		let headers = { 'Content-Type': 'application/json' };
 		return fetch('/api/lists/', { headers, })
 			.then(res => res.json())
-			.then(lists => dispatch(fetchListsSucceeded(lists)));
+			.then(lists => {
+				dispatch(fetchListsSucceeded(lists));
+			})
+			.catch(err => {
+				dispatch(fetchListsFailed('Unable to load lists. The server says: ' + err.message));
+			});
 	};
 };
 
