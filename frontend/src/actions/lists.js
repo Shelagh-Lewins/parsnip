@@ -1,40 +1,7 @@
-function fetchListsStarted() {
+// function fetchListsStarted() {
+export function fetchLists() {
 	return {
 		'type': 'FETCH_LISTS_STARTED'
-	};
-}
-
-function fetchListsFailed(error) {
-	return {
-		'type': 'FETCH_LISTS_FAILED',
-		'payload': {
-			error,
-		},
-	};
-}
-
-export const fetchLists = () => {
-	return dispatch => {
-		dispatch(fetchListsStarted());
-
-		let headers = { 'Content-Type': 'application/json' };
-		return fetch('/api/lists/', { headers, })
-			.then(res => res.json())
-			.then(lists => {
-				dispatch(fetchListsSucceeded(lists));
-			})
-			.catch(err => {
-				dispatch(fetchListsFailed('Unable to load lists. The server says: ' + err.message));
-			});
-	};
-};
-
-export function fetchListsSucceeded(lists) {
-	return {
-		'type': 'FETCH_LISTS_SUCCEEDED',
-		'payload': {
-			lists
-		}
 	};
 }
 
@@ -93,7 +60,6 @@ export const setListIsPublic = ({ id, is_public }) => {
 };
 
 export function setListIsPublicSucceeded({ id, is_public }) {
-	console.log('is_public ', is_public);
 	return {
 		'type': 'SET_LIST_IS_PUBLIC_SUCCEEDED',
 		'payload': {

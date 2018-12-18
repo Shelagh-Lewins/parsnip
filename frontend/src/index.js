@@ -10,6 +10,8 @@ import { Provider } from 'react-redux';
 import listsReducer from './reducers';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from 'redux-saga';
+import rootSaga from './sagas';
 
 const rootReducer = (state = {}, action) => {
 	return {
@@ -17,11 +19,13 @@ const rootReducer = (state = {}, action) => {
 	};
 };
 
+const sagaMiddleware = createSagaMiddleware();
+
 const store = createStore(rootReducer, composeWithDevTools(
-	applyMiddleware(thunk)
-	// applyMiddleware(...middleware),
-	// other store enhancers if any
+	applyMiddleware(thunk, sagaMiddleware)
 ));
+
+sagaMiddleware.run(rootSaga);
 
 ReactDOM.render (
 	<Provider store={store}>
