@@ -7,11 +7,17 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import lists from './reducers';
+import listsReducer from './reducers';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 
-const store = createStore(lists, composeWithDevTools(
+const rootReducer = (state = {}, action) => {
+	return {
+		'lists': listsReducer(state.lists, action)
+	};
+};
+
+const store = createStore(rootReducer, composeWithDevTools(
 	applyMiddleware(thunk)
 	// applyMiddleware(...middleware),
 	// other store enhancers if any

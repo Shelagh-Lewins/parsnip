@@ -57,6 +57,14 @@ class ListsPage extends Component {
 	}
 
 	render() {
+		console.log('this.props ', this.props);
+		if (this.props.isLoading) {
+			return (
+				<div className="lists-loading">
+					Loading...
+				</div>
+			);
+		}
 		return (
 			<div className="lists-list">
 				<div className="lists-list-header">

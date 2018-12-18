@@ -1,18 +1,29 @@
 var updeep = require('updeep');
-export default function lists(state = { 'lists': [] }, action) {
+
+const initialState = {
+	'lists': [],
+	'isloading': false
+};
+
+export default function lists(state = initialState, action) {
 	switch (action.type) {
+		case 'FETCH_LISTS_STARTED': {
+			return updeep({ 'isLoading': true }, state);
+		}
+
 		case 'FETCH_LISTS_SUCCEEDED': {
 			function addLists() {
 				return [].concat(action.payload.lists);
 			}
-			console.log('lists ', action.payload.lists);
-			return updeep({ 'lists': addLists }, state); // updeep calls  addList with the lists object as argument. This appends action.payload to an empty array, replacing any previous lists
+
+			return updeep({ 'lists': addLists, 'isLoading': false }, state); // updeep calls  addList with the lists object as argument. This appends action.payload to an empty array, replacing any previous lists
 		}
 
 		case 'CREATE_LIST_SUCCEEDED': {
 			function addList(lists) {
 				return [].concat(lists, action.payload.list);
 			}
+
 			return updeep({ 'lists': addList }, state); // updeep calls  addList with the lists object as argument. So this appends action.payload to state.lists.
 		}
 

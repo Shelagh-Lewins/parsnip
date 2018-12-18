@@ -1,11 +1,17 @@
+function fetchListsStarted() {
+	return {
+		'type': 'FETCH_LISTS_STARTED'
+	};
+}
+
 export const fetchLists = () => {
 	return dispatch => {
+		dispatch(fetchListsStarted());
+
 		let headers = { 'Content-Type': 'application/json' };
 		return fetch('/api/lists/', { headers, })
 			.then(res => res.json())
-			.then(lists => {
-				dispatch(fetchListsSucceeded(lists));
-			});
+			.then(lists => dispatch(fetchListsSucceeded(lists)));
 	};
 };
 

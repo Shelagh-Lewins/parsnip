@@ -22,6 +22,7 @@ class MyTopTens extends Component {
 	}
 
 	render() {
+		console.log('MyTopTens. props.isLoading ', this.props.isLoading);
 		return (
 			<div className="main-content">
 				<ListsPage
@@ -29,6 +30,7 @@ class MyTopTens extends Component {
 					onCreateList={this.onCreateList}
 					onIsPublicChange={this.onIsPublicChange}
 					onDeleteList={this.onDeleteList}
+					isLoading={this.props.isLoading}
 				/>
 			</div>
 		);
@@ -36,8 +38,12 @@ class MyTopTens extends Component {
 }
 
 function mapStateToProps(state) {
+	// return state.lists; // this seems to work and is much simpler. I'm not sure why this isn't the recommended form?
+	const { lists, isLoading } = state.lists;
 	return {
-		'lists': state.lists
+		lists,
+		isLoading
+		// 'lists': state.lists.lists
 	};
 }
 
