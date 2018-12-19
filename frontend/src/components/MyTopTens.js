@@ -3,11 +3,16 @@ import { connect } from 'react-redux';
 import ListsPage from './ListsPage';
 import { lists } from '../actions/index.js';
 import FlashMessage from './FlashMessage';
+import { getGroupedAndFilteredLists } from '../reducers';
 
 
 class MyTopTens extends Component {
 	componentDidMount() {
 		this.props.dispatch(lists.fetchLists());
+	}
+
+	onSearch = searchTerm => {
+		this.props.dispatch(lists.filterLists(searchTerm));
 	}
 
 	onCreateList = ({ title, description }) => {
@@ -30,6 +35,7 @@ class MyTopTens extends Component {
 				<div className="main-content">
 					<ListsPage
 						lists={this.props.lists}
+						onSearch={this.onSearch}
 						onCreateList={this.onCreateList}
 						onIsPublicChange={this.onIsPublicChange}
 						onDeleteList={this.onDeleteList}
@@ -42,13 +48,12 @@ class MyTopTens extends Component {
 }
 
 function mapStateToProps(state) {
-	// return state.lists; // this seems to work and is much simpler. I'm not sure why this isn't the recommended form?
-	const { lists, isLoading, error } = state.lists;
+	const { isLoading, error } = state.lists;
+
 	return {
-		lists,
+		'lists': getGroupedAndFilteredLists(state),
 		isLoading,
 		error,
-		// 'lists': state.lists.lists
 	};
 }
 

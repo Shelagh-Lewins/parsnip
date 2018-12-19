@@ -14,6 +14,10 @@ class ListsPage extends Component {
 		};
 	}
 
+	onSearch = e => {
+		this.props.onSearch(e.target.value);
+	}
+
 	onTitleChange = (e) => {
 		this.setState({ 'title': e.target.value });
 	}
@@ -48,12 +52,21 @@ class ListsPage extends Component {
 	}
 
 	renderListsList() {
-		const { lists } = this.props;
-		return <ListsList
-			lists={lists}
-			onIsPublicChange={this.props.onIsPublicChange}
-			onDeleteList={this.props.onDeleteList}
-		/>;
+		const { lists, onIsPublicChange, onDeleteList } = this.props;
+
+		return Object.keys(lists).map(is_public => {
+			const listsByIsPublic = lists[is_public];
+
+			return (
+				<ListsList
+					lists={listsByIsPublic}
+					onIsPublicChange={onIsPublicChange}
+					onDeleteList={onDeleteList}
+					is_public={is_public}
+					key={is_public}
+				/>
+			);
+		});
 	}
 
 	render() {
@@ -67,6 +80,11 @@ class ListsPage extends Component {
 		return (
 			<div className="lists-list">
 				<div className="lists-list-header">
+					<input
+						onChange={this.onSearch}
+						type="text"
+						placeholder="Search..."
+					/>
 					<button
 						className="button button-default"
 						onClick={this.toggleForm}

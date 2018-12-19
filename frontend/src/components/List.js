@@ -4,10 +4,7 @@ import React from 'react';
 // Note how the is_public is updated without making this into a React Component with state.
 // By using props to populate the UI, we enable time travel and a direct connection with the store.
 
-const ISPUBLIC_VALUES = [
-	'Private',
-	'Public',
-];
+import { LIST_IS_PUBLIC_TEXTS } from '../constants';
 
 const List = props => {
 	let id=`select-${props.list.id}`;
@@ -22,7 +19,7 @@ const List = props => {
 			<div className="list-body">{props.list.description}</div>
 			<div className="list-status">
 				<select value={value} onChange={onIsPublicChange} id={id}>
-					{ISPUBLIC_VALUES.map(is_public => (
+					{LIST_IS_PUBLIC_TEXTS.map(is_public => (
 						<option key={is_public} value={is_public}>{is_public}</option>
 					))}
 				</select>

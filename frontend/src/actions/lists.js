@@ -5,6 +5,13 @@ export function fetchLists() {
 	};
 }
 
+export function filterLists(searchTerm) {
+	return { 
+		'type': 'FILTER_LISTS',
+		'payload': { searchTerm },
+	};
+}
+
 export const createList = (list) => {
 	return dispatch => {
 		let headers = { 'Content-Type': 'application/json' };
