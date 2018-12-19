@@ -1,9 +1,27 @@
-import { delay } from 'redux-saga';
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
+import { channel, delay } from 'redux-saga';
+import { call, put, take, takeLatest } from 'redux-saga/effects';
 
 export default function* rootSaga() {
 	yield takeLatest('FETCH_LISTS_STARTED', fetchLists);
-	yield takeEvery('TIMER_STARTED', handlePublicTimer);
+	yield takeLatestById('TIMER_STARTED', handlePublicTimer);
+}
+
+
+function* takeLatestById(actionType, saga) {
+	console.log('starting takeLatestById');
+	const channelsMap = {};
+
+	while (true) {
+		const action = yield take(actionType);
+		const { id } = action.payload;
+
+		if (!channelsMap[id]) {
+			channelsMap[id] = channel();
+			yield takeLatest(channelsMap[id], saga);
+		}
+
+		yield put(channelsMap[id], action);
+	}
 }
 
 function* fetchLists() {
