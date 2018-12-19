@@ -20,6 +20,7 @@ class List(models.Model):
     description = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     is_public = models.BooleanField(default=False)
+    timer = models.IntegerField(default=0)
 
     def __str__(self):
         return self.text

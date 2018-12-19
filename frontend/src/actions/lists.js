@@ -55,6 +55,10 @@ export const setListIsPublic = ({ id, is_public }) => {
 			.then(res => res.json())
 			.then(res => { // res is the entire updated list object
 				dispatch(setListIsPublicSucceeded(res));
+
+				if (res.is_public) {
+					dispatch(publicTimerStart(res.id));
+				}
 			});
 	};
 };
@@ -66,5 +70,12 @@ export function setListIsPublicSucceeded({ id, is_public }) {
 			'id': id,
 			is_public
 		}
+	};
+}
+
+function publicTimerStart(id) {
+	return {
+		'type': 'TIMER_STARTED',
+		'payload': { id },
 	};
 }

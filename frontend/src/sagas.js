@@ -1,7 +1,9 @@
-import { put, takeLatest } from 'redux-saga/effects';
+import { delay } from 'redux-saga';
+import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
 export default function* rootSaga() {
 	yield takeLatest('FETCH_LISTS_STARTED', fetchLists);
+	yield takeEvery('TIMER_STARTED', handlePublicTimer);
 }
 
 function* fetchLists() {
@@ -21,3 +23,14 @@ function* fetchLists() {
 		});
 	}
 }
+
+function* handlePublicTimer({ payload }) {
+	while (true) {
+		yield call(delay, 1000);
+		yield put({
+			'type': 'TIMER_INCREMENT',
+			'payload': { 'id': payload.id },
+		});
+	}
+}
+

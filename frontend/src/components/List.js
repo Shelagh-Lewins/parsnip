@@ -27,6 +27,7 @@ const List = props => {
 					))}
 				</select>
 			</div>
+			<div className="list-timer">{props.list.timer}s</div>
 			<button onClick={onDeleteList}>delete</button>
 		</div>
 	);

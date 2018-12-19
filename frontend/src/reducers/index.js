@@ -51,10 +51,19 @@ export default function lists(state = initialState, action) {
 
 		case 'SET_LIST_IS_PUBLIC_SUCCEEDED': {
 			// map would carry on after the index is found
-			// and as we need index, the for loop is simper
+			// and as we need index, the for loop is simpler
 			for (let i=0; i<state.lists.length; i++) {
 				if (state.lists[i].id === action.payload.id) {
 					return updeep.updateIn(`lists.${i}.is_public`, action.payload.is_public, state);
+				}
+			}
+			return state; // in case list was not found
+		}
+
+		case 'TIMER_INCREMENT': {
+			for (let i=0; i<state.lists.length; i++) {
+				if (state.lists[i].id === action.payload.id) {
+					return updeep.updateIn(`lists.${i}.timer`, state.lists[i].timer + 1, state);
 				}
 			}
 			return state; // in case list was not found
