@@ -3,12 +3,11 @@ import { call, put, take, takeLatest } from 'redux-saga/effects';
 
 export default function* rootSaga() {
 	yield takeLatest('FETCH_LISTS_STARTED', fetchLists);
-	yield takeLatestById('TIMER_STARTED', handlePublicTimer);
+	yield takeLatestById(['TIMER_START', 'TIMER_STOP'], handlePublicTimer);
 }
 
 
 function* takeLatestById(actionType, saga) {
-	console.log('starting takeLatestById');
 	const channelsMap = {};
 
 	while (true) {
@@ -42,13 +41,15 @@ function* fetchLists() {
 	}
 }
 
-function* handlePublicTimer({ payload }) {
-	while (true) {
-		yield call(delay, 1000);
-		yield put({
-			'type': 'TIMER_INCREMENT',
-			'payload': { 'id': payload.id },
-		});
+function* handlePublicTimer({ payload, type }) {
+	if (type === 'TIMER_START') {
+		while (true) {
+			yield call(delay, 1000);
+			yield put({
+				'type': 'TIMER_INCREMENT',
+				'payload': { 'id': payload.id },
+			});
+		}
 	}
 }
 

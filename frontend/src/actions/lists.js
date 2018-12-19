@@ -58,6 +58,8 @@ export const setListIsPublic = ({ id, is_public }) => {
 
 				if (res.is_public) {
 					dispatch(publicTimerStart(res.id));
+				} else {
+					dispatch(publicTimerStop(res.id));
 				}
 			});
 	};
@@ -75,7 +77,14 @@ export function setListIsPublicSucceeded({ id, is_public }) {
 
 function publicTimerStart(id) {
 	return {
-		'type': 'TIMER_STARTED',
+		'type': 'TIMER_START',
+		'payload': { id },
+	};
+}
+
+function publicTimerStop(id) {
+	return {
+		'type': 'TIMER_STOP',
 		'payload': { id },
 	};
 }
