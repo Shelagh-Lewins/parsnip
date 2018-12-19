@@ -23,4 +23,16 @@ class List(models.Model):
     timer = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.text
+        return self.title
+
+
+class Item(models.Model):
+    slug = models.CharField(max_length=ID_LENGTH, default=pkgen, editable=False)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    title = models.CharField(max_length=255)
+    description = models.CharField(max_length=255)
+    created_at = models.DateTimeField(auto_now_add=True)
+    list = models.ForeignKey(List, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.title
