@@ -2,6 +2,7 @@ import uuid
 
 from django.db import models
 from django.utils.http import int_to_base36
+from django.core.validators import MaxValueValidator, MinValueValidator
 
 ID_LENGTH = 12
 
@@ -33,6 +34,11 @@ class Item(models.Model):
     description = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
     list = models.ForeignKey(List, on_delete=models.CASCADE)
+    order = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
 
-    def __str__(self):
-        return self.title
+    class Meta:
+        unique_together = ('list', 'order')
+        ordering = ['order']
+
+    def __unicode__(self):
+        return '%d: %s' % (self.order, self.title)
