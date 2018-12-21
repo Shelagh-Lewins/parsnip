@@ -33,7 +33,7 @@ class Item(models.Model):
     title = models.CharField(max_length=255)
     description = models.CharField(max_length=255)
     created_at = models.DateTimeField(auto_now_add=True)
-    list = models.ForeignKey(List, on_delete=models.CASCADE)
+    list = models.ForeignKey(List, on_delete=models.CASCADE, related_name='items')
     order = models.IntegerField(validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     class Meta:
