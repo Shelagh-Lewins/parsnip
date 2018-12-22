@@ -46,7 +46,7 @@ export default function lists(state = initialState, action) {
 		}
 
 		case 'FETCH_LISTS_FAILED': {
-			return updeep({ 'isLoading': false, 'error': action.payload.error }, state);
+			return updeep({ 'isLoading': false, 'error': action.payload }, state);
 		}
 
 		case 'FETCH_LISTS_SUCCEEDED': {

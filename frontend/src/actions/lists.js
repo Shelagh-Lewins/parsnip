@@ -1,9 +1,53 @@
-// function fetchListsStarted() {
+
+// return JSON if possible, otherwise throw error
+function handleFetchErrors(res) {
+	if (!res.ok) {
+		throw Error (res.statusText);
+	}
+	return res.json();
+}
+
+export function fetchListsStarted(is_public) {
+	return {
+		'type': 'FETCH_LISTS_STARTED',
+		'payload': { is_public }, // not sure what this is for yet, in book it is 'boards'
+	};
+}
+
+function fetchListSucceeded(lists) {
+	return {
+		'type': 'FETCH_LISTS_SUCCEEDED',
+		'payload': { lists },
+	};
+}
+
+
+function fetchListsFailed(err) {
+	return {
+		'type': 'FETCH_LISTS_FAILED',
+		'payload': err,
+	};
+}
+
 export function fetchLists() {
+	return (dispatch, getState) => {
+		dispatch(fetchListsStarted());
+
+		let headers = { 'Content-Type': 'application/json' };
+
+		fetch('/api/lists/', { headers, })
+			.then(handleFetchErrors)
+			.then(res => dispatch(fetchListSucceeded(res)))
+			.catch(err => dispatch(fetchListsFailed(err.message))); // book shows just function call, not dispatch, but that doesn't seem to work
+	};
+}
+
+/////////////////////////////
+/* export function fetchLists() {
 	return {
 		'type': 'FETCH_LISTS_STARTED'
 	};
-}
+} */
 
 export function filterLists(searchTerm) {
 	return { 

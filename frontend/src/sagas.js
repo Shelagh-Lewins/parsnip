@@ -2,7 +2,7 @@ import { channel, delay } from 'redux-saga';
 import { call, put, take, takeLatest } from 'redux-saga/effects';
 
 export default function* rootSaga() {
-	yield takeLatest('FETCH_LISTS_STARTED', fetchLists);
+	// yield takeLatest('FETCH_LISTS_STARTED', fetchLists);
 	yield takeLatestById(['TIMER_START', 'TIMER_STOP'], handlePublicTimer);
 }
 
@@ -22,7 +22,7 @@ function* takeLatestById(actionType, saga) {
 		yield put(channelsMap[id], action);
 	}
 }
-
+/*
 function* fetchLists() {
 	let headers = { 'Content-Type': 'application/json' };
 	try {
@@ -39,7 +39,7 @@ function* fetchLists() {
 			'payload': { 'error': e.message }
 		});
 	}
-}
+} */
 
 function* handlePublicTimer({ payload, type }) {
 	if (type === 'TIMER_START') {
