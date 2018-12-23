@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ItemsList from './ItemsList';
+import { MAX_ITEMS_IN_LIST } from '../constants';
 
 class ItemsPage extends Component {
 	constructor(props) {
@@ -31,7 +32,22 @@ class ItemsPage extends Component {
 	onCreateItem = (e) => {
 		e.preventDefault();
 
-		const order = this.props.items.length + 1;
+		// find the next available position in the list
+		const orders = this.props.items.map((item) => parseInt(item.order));
+		orders.sort(function(a, b){return a - b;});
+		let order;
+
+		for (let i=1; i<=MAX_ITEMS_IN_LIST; i++) {
+			if (orders.indexOf(i) === -1) {
+				order = i;
+				break;
+			}
+		}
+
+		if (!order) {
+			return; // the list is full
+		}
+
 		this.props.onCreateItem({
 			'title': this.state.title,
 			'description': this.state.description,

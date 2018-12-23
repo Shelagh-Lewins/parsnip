@@ -1,3 +1,16 @@
+import { normalize, schema } from 'normalizr';
+
+const itemSchema = new schema.Entity('items');
+const listSchema = new schema.Entity('lists', {
+	'items': [itemSchema],
+});
+
+function receiveEntities(entities) {
+	return {
+		'type': 'RECEIVE_ENTITIES',
+		'payload': entities,
+	};
+}
 
 // return JSON if possible, otherwise throw error
 function handleFetchErrors(res) {
@@ -14,14 +27,6 @@ export function fetchListsStarted(is_public) {
 	};
 }
 
-function fetchListSucceeded(lists) {
-	return {
-		'type': 'FETCH_LISTS_SUCCEEDED',
-		'payload': { lists },
-	};
-}
-
-
 function fetchListsFailed(err) {
 	return {
 		'type': 'FETCH_LISTS_FAILED',
@@ -37,7 +42,16 @@ export function fetchLists() {
 
 		fetch('/api/lists/', { headers, })
 			.then(handleFetchErrors)
-			.then(res => dispatch(fetchListSucceeded(res)))
+			.then(res => {
+				const normalizedData = normalize(res, [listSchema]);
+
+				if (!getState().page.currentListId) {
+					const defaultListId = res[0].id;
+					dispatch(setCurrentListId(defaultListId));
+				}
+
+				return dispatch(receiveEntities(normalizedData));
+			})
 			.catch(err => dispatch(fetchListsFailed(err.message))); // book shows just function call, not dispatch, but that doesn't seem to work
 	};
 }

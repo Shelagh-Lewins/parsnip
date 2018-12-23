@@ -16,7 +16,6 @@ const Item = props => {
 	);
 
 	function onDeleteItem(e) {
-		console.log('currentListId ', props.list);
 		props.onDeleteItem({
 			'itemId': props.item.id,
 			'listId': props.list,

@@ -5,7 +5,7 @@ import ItemsPage from './ItemsPage';
 import Header from './Header';
 import { lists, items } from '../actions/index.js';
 import FlashMessage from './FlashMessage';
-import { lists as listsReducer } from '../reducers';
+import { lists as listsReducer, items as itemsReducer } from '../reducers';
 
 
 class MyTopTens extends Component {
@@ -76,8 +76,9 @@ function mapStateToProps(state) {
 	const { currentListId } = state.page;
 
 	return {
+		// 'lists': listsReducer.getGroupedAndFilteredLists(state),
 		'lists': listsReducer.getGroupedAndFilteredLists(state),
-		'items': listsReducer.getItemsByListId(state),
+		'items': itemsReducer.getItemsByListId(state),
 		'currentListId': currentListId,
 		isLoading,
 		error,
