@@ -139,3 +139,12 @@ function publicTimerStop(id) {
 		'payload': { id },
 	};
 }
+
+export function setCurrentListId(id) {
+	return {
+		'type': 'SET_CURRENT_LIST_ID',
+		'payload': {
+			id,
+		}
+	};
+}

@@ -7,7 +7,7 @@ import * as serviceWorker from './serviceWorker';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
-import listsReducer from './reducers';
+import { lists, page } from './reducers';
 
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
@@ -15,7 +15,8 @@ import rootSaga from './sagas';
 
 const rootReducer = (state = {}, action) => {
 	return {
-		'lists': listsReducer(state.lists, action)
+		'lists': lists.lists(state.lists, action),
+		'page': page.page(state.page, action),
 	};
 };
 
