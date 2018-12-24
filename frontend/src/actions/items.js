@@ -1,16 +1,19 @@
 // actions for items
+export const createItem = item => dispatch => {
+	dispatch(createItemRequested());
 
-export const createItem = (item) => {
-	return dispatch => {
-		let headers = { 'Content-Type': 'application/json' };
-		let body = JSON.stringify(item);
-		return fetch('/api/items/', { headers, 'method': 'POST', body })
-			.then(res => res.json())
-			.then(item => {
-				dispatch(createItemSucceeded(item));
-			});
-	};
+	let headers = { 'Content-Type': 'application/json' };
+	let body = JSON.stringify(item);
+	return fetch('/api/items/', { headers, 'method': 'POST', body })
+		.then(res => res.json())
+		.then((item) => dispatch(createItemSucceeded(item)));
 };
+
+export function createItemRequested() {
+	return {
+		'type': 'CREATE_ITEM_REQUESTED',
+	};
+}
 
 export function createItemSucceeded(item) {
 	return {

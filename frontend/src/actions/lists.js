@@ -56,13 +56,6 @@ export function fetchLists() {
 	};
 }
 
-/////////////////////////////
-/* export function fetchLists() {
-	return {
-		'type': 'FETCH_LISTS_STARTED'
-	};
-} */
-
 export function filterLists(searchTerm) {
 	return { 
 		'type': 'FILTER_LISTS',
@@ -70,16 +63,12 @@ export function filterLists(searchTerm) {
 	};
 }
 
-export const createList = (list) => {
-	return dispatch => {
-		let headers = { 'Content-Type': 'application/json' };
-		let body = JSON.stringify(list);
-		return fetch('/api/lists/', { headers, 'method': 'POST', body })
-			.then(res => res.json())
-			.then(list => {
-				dispatch(createListSucceeded(list));
-			});
-	};
+export const createList = list => dispatch => {
+	let headers = { 'Content-Type': 'application/json' };
+	let body = JSON.stringify(list);
+	return fetch('/api/lists/', { headers, 'method': 'POST', body })
+		.then(res => res.json())
+		.then(list => dispatch(createListSucceeded(list)));
 };
 
 export function createListSucceeded(list) {
