@@ -50,6 +50,7 @@ class MyTopTens extends Component {
 					<Header
 						lists={this.props.lists}
 						onCurrentListChange={this.onCurrentListChange}
+						currentListId={this.props.currentListId}
 					/>
 					<ListsPage
 						lists={this.props.lists}
@@ -76,7 +77,6 @@ function mapStateToProps(state) {
 	const { currentListId } = state.page;
 
 	return {
-		// 'lists': listsReducer.getGroupedAndFilteredLists(state),
 		'lists': listsReducer.getGroupedAndFilteredLists(state),
 		'items': itemsReducer.getItemsByListId(state),
 		'currentListId': currentListId,
