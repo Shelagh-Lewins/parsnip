@@ -22,6 +22,8 @@ function* takeLatestById(actionType, saga) {
 		yield put(channelsMap[id], action);
 	}
 }
+
+// fetchLists as a saga from book
 /*
 function* fetchLists() {
 	let headers = { 'Content-Type': 'application/json' };
@@ -41,7 +43,7 @@ function* fetchLists() {
 	}
 } */
 
-function* handlePublicTimer({ payload, type }) {
+export function* handlePublicTimer({ payload, type }) {
 	if (type === 'TIMER_START') {
 		while (true) {
 			yield call(delay, 1000);

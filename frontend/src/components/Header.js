@@ -19,21 +19,6 @@ class Header extends Component {
 			return options;
 		});
 
-		let listTitle;
-		let listIsPublic;
-
-		Object.keys(this.props.lists).map(is_public => {
-			const listsByIsPublic = this.props.lists[is_public];
-
-			for (let i=0; i<listsByIsPublic.length; i++) {
-				if (listsByIsPublic[i].id === this.props.currentListId) {
-					listTitle = listsByIsPublic[i].title;
-					listIsPublic = is_public;
-					break;
-				}
-			}
-		});
-
 		// don't render select until default selection is available
 		return (
 			<div className="header">
