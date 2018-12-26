@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 
-import { createItem } from './items/';
+import { createItem, deleteItem } from './items/';
 import { createItemSucceeded } from './items/';
 
 jest.unmock('./items/');
@@ -38,6 +38,28 @@ describe('createItem', () => {
 		window.fetch = mockFetch( bob );
 
 		return store.dispatch(createItem({})).then(() => {
+			expect(store.getActions()).toEqual(expectedActions);
+			expect(fetch).toHaveBeenCalled();
+		});
+	});
+});
+
+describe('deleteItem', () => {
+	it('works', () => {
+		const item = { 'itemId': 'abc', 'listId': 'def' };
+
+		const expectedActions = [
+			{ 'type': 'DELETE_ITEM_SUCCEEDED', 'payload': item },
+		];
+		const store = mockStore({
+			'items': {
+				'things': [],
+			}
+		});
+
+		window.fetch = mockFetch( item );
+
+		return store.dispatch(deleteItem(item)).then(() => {
 			expect(store.getActions()).toEqual(expectedActions);
 			expect(fetch).toHaveBeenCalled();
 		});

@@ -3,10 +3,11 @@ import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App from './App';
 
-import ReactDOM from 'react-dom';
+// import ReactDOM from 'react-dom';
 
 // Enzyme shows an error if there is not a store / provider wrapping the App component.
 // The default ReactDOM.render doesn't seem to work even with the additional bits.
+// this is a poor test as it really doesn't test the component
 import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 const mockStore = configureMockStore();

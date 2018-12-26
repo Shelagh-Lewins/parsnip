@@ -8,7 +8,7 @@ import FlashMessage from './FlashMessage';
 import { lists as listsReducer, items as itemsReducer } from '../reducers';
 
 
-class MyTopTens extends Component {
+export class MyTopTens extends Component {
 	componentDidMount() {
 		this.props.dispatch(lists.fetchLists());
 	}

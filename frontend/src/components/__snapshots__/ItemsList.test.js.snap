@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[` 1`] = `
+<div
+  className="lists-list"
+>
+  <div
+    className="lists-list-title"
+  >
+    <strong>
+      Private
+    </strong>
+  </div>
+</div>
+`;
+
+exports[`it should match the last snapshot without lists should match the last snapshot with lists 1`] = `
+<div
+  className="lists-list"
+>
+  <div
+    className="lists-list-title"
+  >
+    <strong>
+      Private
+    </strong>
+  </div>
+  <List
+    key="abc"
+    list={
+      Object {
+        "description": "some stuff",
+        "id": "abc",
+        "title": "a list",
+      }
+    }
+  />
+  <List
+    key="def"
+    list={
+      Object {
+        "description": "some more stuff",
+        "id": "def",
+        "title": "another list",
+      }
+    }
+  />
+</div>
+`;

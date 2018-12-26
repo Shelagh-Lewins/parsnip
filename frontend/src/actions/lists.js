@@ -23,7 +23,6 @@ function handleFetchErrors(res) {
 export function fetchListsStarted(is_public) {
 	return {
 		'type': 'FETCH_LISTS_STARTED',
-		'payload': { is_public }, // not sure what this is for yet, in book it is 'boards'
 	};
 }
 
