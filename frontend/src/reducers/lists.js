@@ -11,7 +11,7 @@ const initialListsState = {
 };
 
 // 'state' here is global state
-const getSearchTerm = state => {
+export const getSearchTerm = state => {
 	return state.page.searchTerm;
 };
 

@@ -44,7 +44,7 @@ export function fetchLists() {
 			.then(handleFetchErrors)
 			.then(res => {
 				const normalizedData = normalize(res, [listSchema]);
-				console.log('normalizing data. page state ', getState().page);
+
 				if (!getState().page.currentListId) {
 					const defaultListId = res[0].id;
 					dispatch(setCurrentListId(defaultListId));
